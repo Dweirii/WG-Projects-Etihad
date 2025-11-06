@@ -46,12 +46,12 @@ export default function CompanyShowcase() {
           {companies.map((company, index) => (
             <div
               key={company.name}
-              className={`flex flex-col gap-8 ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} items-center`}
+              className={`flex flex-col gap-8 ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} lg:items-start`}
             >
               {/* Image Section */}
               <div className="w-full lg:w-1/2">
                 <div className="group relative overflow-hidden rounded-2xl shadow-xl transition-all duration-500 hover:shadow-2xl">
-                  <div className="relative aspect-video w-full h-full object-cover">
+                  <div className="relative aspect-3/4 w-full md:aspect-4/5 lg:aspect-4/4">
                     <Image
                       src={company.image || "/placeholder.svg"}
                       alt={company.name}
@@ -66,7 +66,7 @@ export default function CompanyShowcase() {
               </div>
 
               {/* Content Section */}
-              <div className="w-full lg:w-1/2">
+              <div className="w-full lg:w-1/2 lg:pt-0">
                 <div className="space-y-6">
                   {/* Company Name with decorative line */}
                   <div className="space-y-3">
@@ -81,26 +81,6 @@ export default function CompanyShowcase() {
                         {paragraph}
                       </p>
                     ))}
-                  </div>
-
-                  {/* Learn More Button */}
-                  <div className="pt-4">
-                    <button className="group inline-flex items-center gap-2 rounded-full bg-[#B8860B] px-8 py-3 font-semibold text-white transition-all duration-300 hover:bg-[#9A7209] hover:shadow-lg">
-                      Learn More
-                      <svg
-                        className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </button>
                   </div>
                 </div>
               </div>
