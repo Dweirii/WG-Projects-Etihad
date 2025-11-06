@@ -226,7 +226,7 @@ export function FacilityHero() {
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-none bg-black shadow-[0_10px_40px_rgba(0,0,0,0.45)] h-[min(100vh,800px)] min-h-[500px] md:h-[min(86vh,960px)] md:min-h-[560px]"
+      className="relative w-full h-screen overflow-hidden rounded-none bg-black shadow-[0_10px_40px_rgba(0,0,0,0.45)]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       role="region"
