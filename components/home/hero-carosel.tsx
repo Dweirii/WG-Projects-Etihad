@@ -159,12 +159,12 @@ export function FacilityHero() {
   }, [])
 
   const nextSlide = useCallback(() => {
-    goToSlide(currentIndex + 1)
-  }, [currentIndex, goToSlide])
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % SLIDES.length)
+  }, [])
 
   const prevSlide = useCallback(() => {
-    goToSlide(currentIndex - 1)
-  }, [currentIndex, goToSlide])
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + SLIDES.length) % SLIDES.length)
+  }, [])
 
   const togglePlay = useCallback(() => {
     setIsPlaying((prev) => !prev)
@@ -174,9 +174,12 @@ export function FacilityHero() {
   useEffect(() => {
     if (!isPlaying || isHovered) return
 
-    const timer = setTimeout(nextSlide, INTERVAL)
+    const timer = setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % SLIDES.length)
+    }, INTERVAL)
+    
     return () => clearTimeout(timer)
-  }, [currentIndex, isPlaying, isHovered, nextSlide])
+  }, [currentIndex, isPlaying, isHovered])
 
   // Keyboard navigation
   useEffect(() => {

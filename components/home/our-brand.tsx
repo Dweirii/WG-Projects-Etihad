@@ -1,5 +1,10 @@
+"use client"
+
+import * as React from "react"
 import Image from "next/image"
+import Autoplay from "embla-carousel-autoplay"
 import { Button } from "@/components/ui/button"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 const brands = [
   {
@@ -58,42 +63,59 @@ const brands = [
     width: 379,
     height: 253,
   },
-  {
-    name: "Lazord Oil Processing",
-    image:
-      "https://static.wixstatic.com/media/fdd745_0ce21280d9604cb4af0430a70254d0dd~mv2.png/v1/crop/x_0,y_37,w_5000,h_4090/fill/w_357,h_291,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/12.png",
-    width: 379,
-    height: 253,
-  }
 ]
 
 export default function OurBrands() {
-  return (
-    <section className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto max-w-7xl">
-        {/* Title */}
-        <h2 className="mb-12 text-center text-4xl font-bold text-[#B8860B] sm:text-5xl lg:text-6xl">
-          Our Products
-        </h2>
+  const plugin = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true }))
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-          {brands.map((brand) => (
-            <div key={brand.name} className="flex items-center justify-center p-4">
-              <Image
-                src={brand.image || "/placeholder.svg"}
-                alt={brand.name}
-                width={brand.width}
-                height={brand.height}
-                className="w-full h-auto object-contain max-w-[200px] md:max-w-[220px] lg:max-w-[200px]"
-              />
-            </div>
-          ))}
+  return (
+    <section className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl">
+        <div className="mb-16 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-[#B8860B] sm:text-5xl lg:text-6xl">Our Products</h2>
+          <p className="mx-auto max-w-2xl text-lg text-gray-600">
+            Discover our premium range of food products, trusted by families across the region
+          </p>
         </div>
 
-        {/* Learn More Button */}
+        <div className="relative mb-16 px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[plugin.current]}
+            className="w-full"
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {brands.map((brand) => (
+                <CarouselItem key={brand.name} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                  <div className="group relative flex h-64 items-center justify-center rounded-2xl bg-transparent p-8  transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div className="flex items-center justify-center">
+                      <Image
+                        src={brand.image || "/placeholder.svg"}
+                        alt={brand.name}
+                        width={brand.width}
+                        height={brand.height}
+                        className="h-auto w-full max-w-[180px] object-contain transition-all duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-white" />
+            <CarouselNext className="border-[#B8860B] text-[#B8860B] hover:bg-[#B8860B] hover:text-white" />
+          </Carousel>
+        </div>
+
         <div className="flex justify-center">
-          <Button size="lg" className="bg-[#B8860B] hover:bg-[#9A7209] text-white px-8 py-6 text-lg rounded-full">
+          <Button
+            size="lg"
+            className="rounded-full bg-[#B8860B] px-10 py-6 text-lg font-semibold text-white transition-all duration-300 hover:bg-[#9A7209] hover:shadow-lg"
+          >
             Learn more
           </Button>
         </div>

@@ -48,7 +48,7 @@ export function OurCompanies() {
   return (
     <section className="w-full bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <h2 className="mb-12 text-5xl font-bold text-[#B8860B] lg:text-6xl">Our Companies</h2>
+        <h2 className="mb-12 text-5xl text-center font-bold text-[#B8860B] lg:text-6xl">Our Companies</h2>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {companies.map((company) => (
