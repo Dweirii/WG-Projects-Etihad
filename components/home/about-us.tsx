@@ -30,8 +30,8 @@ export function AboutUs() {
         {/* Image Gallery - Staggered Layout */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Left Image */}
-          <div className="flex items-end lg:pb-12">
-            <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg shadow-lg">
+          <div className="flex items-end justify-center lg:pb-12">
+            <div className="relative aspect-3/4 w-full max-w-[280px] overflow-hidden rounded-lg shadow-lg md:max-w-[320px] lg:max-w-[280px]">
               <Image
                 src="https://static.wixstatic.com/media/fdd745_84ca085c8f63441588bdd5b70f93a656~mv2.jpg/v1/fill/w_746,h_976,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/PHOTO-2025-09-16-12-41-39%203.jpg"
                 alt="Aerial view of agricultural facility"
@@ -42,8 +42,8 @@ export function AboutUs() {
           </div>
 
           {/* Center Image */}
-          <div className="flex items-center lg:pt-12">
-            <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg shadow-lg">
+          <div className="flex items-center justify-center lg:pt-12">
+            <div className="relative aspect-3/4 w-full max-w-[280px] overflow-hidden rounded-lg shadow-lg md:max-w-[320px] lg:max-w-[280px]">
               <Image
                 src="https://static.wixstatic.com/media/fdd745_e1bbd2635aa84b2d888a9dd3960461f3~mv2.jpg/v1/fill/w_746,h_976,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/img1357%20(1).jpg"
                 alt="Industrial processing equipment"
@@ -54,8 +54,8 @@ export function AboutUs() {
           </div>
 
           {/* Right Image */}
-          <div className="flex items-end lg:pb-12">
-            <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg shadow-lg">
+          <div className="flex items-end justify-center lg:pb-12">
+            <div className="relative aspect-3/4 w-full max-w-[280px] overflow-hidden rounded-lg shadow-lg md:max-w-[320px] lg:max-w-[280px]">
               <Image
                 src="https://static.wixstatic.com/media/fdd745_6e707603347e44bca5789060f861d10d~mv2.jpg/v1/crop/x_1286,y_0,w_2265,h_2962/fill/w_746,h_976,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11.jpg"
                 alt="Industrial facility entrance"
