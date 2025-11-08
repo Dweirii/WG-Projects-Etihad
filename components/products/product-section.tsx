@@ -13,6 +13,8 @@ interface ProductSectionProps {
   id?: string
   imageWidth?: number
   imageHeight?: number
+  sectionIndex?: number
+  totalSections?: number
 }
 
 export function ProductSection({
@@ -26,10 +28,52 @@ export function ProductSection({
   id,
   imageWidth,
   imageHeight,
+  sectionIndex = 0,
+  totalSections = 5,
 }: ProductSectionProps) {
+  const isFirst = sectionIndex === 0
+  const isLast = sectionIndex === totalSections - 1
+  const diagonalHeight = 100 // Height of diagonal edge in pixels
+
+  // Create clip-path for diagonal edges
+  const getClipPath = () => {
+    if (isFirst) {
+      // First section - only bottom diagonal (sloping from left to right)
+      return `polygon(0 0, 100% 0, 100% calc(100% - ${diagonalHeight}px), 0 100%)`
+    } else if (isLast) {
+      // Last section - only top diagonal (sloping from left to right)
+      return `polygon(0 ${diagonalHeight}px, 100% 0, 100% 100%, 0 100%)`
+    } else {
+      // Middle sections - both top and bottom diagonals
+      return `polygon(0 ${diagonalHeight}px, 100% 0, 100% calc(100% - ${diagonalHeight}px), 0 100%)`
+    }
+  }
+
+  // Get margin top to overlap sections
+  const getMarginTop = () => {
+    if (isFirst) return '0'
+    return `-${diagonalHeight}px` // Overlap by diagonal height
+  }
+
   return (
-    <section id={id} className={`relative ${backgroundColor} overflow-hidden`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <section 
+      id={id} 
+      className={`relative overflow-hidden`}
+      style={{ 
+        marginTop: getMarginTop(),
+        paddingTop: !isFirst ? `${diagonalHeight}px` : '0',
+        paddingBottom: !isLast ? `${diagonalHeight}px` : '0',
+        zIndex: totalSections - sectionIndex, // Ensure proper layering
+      }}
+    >
+      {/* Background with diagonal edges */}
+      <div 
+        className={`absolute inset-0 ${backgroundColor}`}
+        style={{
+          clipPath: getClipPath(),
+        }}
+      />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
         <div
           className={`grid md:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? "md:flex-row-reverse" : ""}`}
         >
@@ -118,17 +162,17 @@ export function ProductSection({
 
           {/* Image */}
           <div className={`${imagePosition === "right" ? "md:order-2" : "md:order-1"}`}>
-            <div className="relative">
-              {/* Product Image */}
-              <div className="relative w-full max-w-md mx-auto" style={{ aspectRatio: imageWidth && imageHeight ? `${imageWidth}/${imageHeight}` : '1/1' }}>
-                <div className="absolute inset-0 bg-transparent  rounded-2xl transform scale-95"></div>
-                <div className="relative w-full h-full flex items-center justify-center p-8 bg-transparent  rounded-2xl">
+            <div className="relative flex items-center justify-center">
+              {/* Circular Product Image */}
+              <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                <div className="absolute inset-0 rounded-full bg-white/20 backdrop-blur-sm border-4 border-white/30 shadow-2xl"></div>
+                <div className="relative w-full h-full rounded-full overflow-hidden p-6">
                   <Image
                     src={image || "/placeholder.svg"}
                     alt={title}
                     fill
                     className="object-contain drop-shadow-2xl"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
                   />
                 </div>
               </div>

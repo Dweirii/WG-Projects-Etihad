@@ -29,6 +29,8 @@ export default function ProductsPage() {
           imagePosition="left"
           imageWidth={312}
           imageHeight={208}
+          sectionIndex={0}
+          totalSections={5}
         />
 
         {/* Al-Dar Section - Deep Blue */}
@@ -43,6 +45,8 @@ export default function ProductsPage() {
           imagePosition="right"
           imageWidth={352}
           imageHeight={224}
+          sectionIndex={1}
+          totalSections={5}
         />
 
         {/* Fayroz Section - Deep Green */}
@@ -57,6 +61,8 @@ export default function ProductsPage() {
           imagePosition="left"
           imageWidth={349}
           imageHeight={234}
+          sectionIndex={2}
+          totalSections={5}
         />
 
         {/* Lazord Section - Deep Teal */}
@@ -71,6 +77,8 @@ export default function ProductsPage() {
           imagePosition="right"
           imageWidth={360}
           imageHeight={142}
+          sectionIndex={3}
+          totalSections={5}
         />
 
         {/* Sawsan Section - Deep Rose */}
@@ -85,6 +93,8 @@ export default function ProductsPage() {
           imagePosition="left"
           imageWidth={395}
           imageHeight={264}
+          sectionIndex={4}
+          totalSections={5}
         />
         </div>
       </main>
