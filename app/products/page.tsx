@@ -23,12 +23,12 @@ export default function ProductsPage() {
           title="Etihad Sugar"
           subtitle="Pure Sweetness"
           description="Etihad Sugar brings you the purest, finest quality sugar for all your culinary needs. Perfect for baking, cooking, and sweetening your favorite beverages."
-          image="https://static.wixstatic.com/media/fdd745_f864c4261bf74eb6a6cbf3b869130cf6~mv2.png/v1/fill/w_312,h_208,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/6.png"
+          image="https://static.wixstatic.com/media/fdd745_9a33b36bee5e4ee091d0550c1f991e13~mv2.png/v1/fill/w_381,h_253,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4.png"
           backgroundColor="bg-gradient-to-br from-indigo-700 via-indigo-800 to-indigo-900"
           textColor="text-white"
           imagePosition="left"
-          imageWidth={312}
-          imageHeight={208}
+          imageWidth={381}
+          imageHeight={253}
           sectionIndex={0}
           totalSections={5}
         />
