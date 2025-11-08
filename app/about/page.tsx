@@ -1,5 +1,6 @@
 import AboutHero from "@/components/about/hero"
-import NewsSection from "@/components/company/news-section"
+import WhatWeDo from "@/components/about/what-we-do"
+import VisionMission from "@/components/about/vision-mission"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 
@@ -9,7 +10,8 @@ export default function AboutPage() {
             <Header />
             <main className="grow">
                 <AboutHero />
-                <NewsSection />
+                <WhatWeDo />
+                <VisionMission />
             </main>
             <Footer />
         </div>

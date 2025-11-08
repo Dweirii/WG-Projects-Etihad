@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'wg-global.b-cdn.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'WG-Global.b-cdn.net',
+      },
     ],
   },
 };
