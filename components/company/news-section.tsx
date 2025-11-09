@@ -55,15 +55,8 @@ export default function NewsSection() {
   const [featuredNews, ...regularNews] = newsItems
 
   return (
-    <section className="bg-gray-50 py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-balance text-4xl font-bold text-[#B8860B] md:text-5xl">Latest News & Updates</h2>
-          <p className="mx-auto max-w-2xl text-pretty text-lg leading-relaxed text-gray-600">
-            Stay updated with the latest developments, achievements, and initiatives from Etihad Group
-          </p>
-        </div>
 
         {/* Featured News */}
         <article className="group mb-8 overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-500 hover:shadow-2xl md:mb-12">
@@ -105,7 +98,7 @@ export default function NewsSection() {
                 size="lg"
                 className="group/btn w-fit bg-[#B8860B] text-white transition-all hover:bg-[#9A7209] hover:shadow-lg"
               >
-                About us
+                Read More
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
               </Button>
             </div>
