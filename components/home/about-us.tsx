@@ -11,14 +11,18 @@ export function AboutUs() {
         </h2>
 
         {/* Description - Centered with Better Spacing */}
-        <p className="mx-auto mb-10 max-w-5xl text-center text-base leading-relaxed text-gray-800 sm:text-lg sm:leading-relaxed">
-          Welcome to Etihad Group, a leading name in the food and agricultural industries. Since its establishment in
-          2012, the Group has successfully positioned itself as one of the most prominent companies in the Middle East
-          and the world, thanks to its commitment to innovation, high quality, and adaptability to modern demands. We
-          manage major companies such as Etihad Food Industries and Rayan for Oil Extraction & Feed Mill, which form the
-          cornerstones of our continued success. At Etihad Group, we are dedicated to delivering the finest products,
-          with a strong focus on sustainable development and industrial excellence.
-        </p>
+        <div className="mx-auto mb-10 max-w-4xl">
+          <p className="text-center text-base leading-relaxed text-gray-800 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed">
+            Welcome to Etihad Group, a leading name in the food and agricultural industries. Since its establishment in
+            2012, the Group has successfully positioned itself as one of the most prominent companies in the Middle East
+            and the world, thanks to its commitment to innovation, high quality, and adaptability to modern demands.
+          </p>
+          <p className="mt-6 text-center text-base leading-relaxed text-gray-800 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed">
+            We manage major companies such as Etihad Food Industries and Rayan for Oil Extraction & Feed Mill, which form the
+            cornerstones of our continued success. At Etihad Group, we are dedicated to delivering the finest products,
+            with a strong focus on sustainable development and industrial excellence.
+          </p>
+        </div>
 
         {/* Learn More Button - Centered */}
         <div className="mb-12 flex justify-center">
@@ -27,42 +31,46 @@ export function AboutUs() {
           </Button>
         </div>
 
-        {/* Image Gallery - Staggered Layout */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Left Image */}
-          <div className="flex items-end justify-center lg:pb-12">
-            <div className="relative aspect-3/4 w-full max-w-[280px] overflow-hidden rounded-lg shadow-lg md:max-w-[320px] lg:max-w-[280px]">
-              <Image
-                src="https://static.wixstatic.com/media/fdd745_84ca085c8f63441588bdd5b70f93a656~mv2.jpg/v1/fill/w_746,h_976,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/PHOTO-2025-09-16-12-41-39%203.jpg"
-                alt="Aerial view of agricultural facility"
-                fill
-                className="object-cover"
-              />
-            </div>
+        {/* Image Gallery - 4 Column Grid */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Image 1 */}
+          <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <Image
+              src="https://WG-Global.b-cdn.net/Etihad/ALTEHAD17.jpeg"
+              alt="Etihad Group facility"
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+            />
           </div>
 
-          {/* Center Image */}
-          <div className="flex items-center justify-center lg:pt-12">
-            <div className="relative aspect-3/4 w-full max-w-[280px] overflow-hidden rounded-lg shadow-lg md:max-w-[320px] lg:max-w-[280px]">
-              <Image
-                src="https://static.wixstatic.com/media/fdd745_e1bbd2635aa84b2d888a9dd3960461f3~mv2.jpg/v1/fill/w_746,h_976,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/img1357%20(1).jpg"
-                alt="Industrial processing equipment"
-                fill
-                className="object-cover"
-              />
-            </div>
+          {/* Image 2 */}
+          <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <Image
+              src="https://WG-Global.b-cdn.net/Etihad/ALTEHAD25.jpeg"
+              alt="Etihad Group facility"
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+            />
           </div>
 
-          {/* Right Image */}
-          <div className="flex items-end justify-center lg:pb-12">
-            <div className="relative aspect-3/4 w-full max-w-[280px] overflow-hidden rounded-lg shadow-lg md:max-w-[320px] lg:max-w-[280px]">
-              <Image
-                src="https://static.wixstatic.com/media/fdd745_6e707603347e44bca5789060f861d10d~mv2.jpg/v1/crop/x_1286,y_0,w_2265,h_2962/fill/w_746,h_976,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11.jpg"
-                alt="Industrial facility entrance"
-                fill
-                className="object-cover"
-              />
-            </div>
+          {/* Image 3 */}
+          <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <Image
+              src="https://WG-Global.b-cdn.net/Etihad/ALTEHAD32.jpeg"
+              alt="Etihad Group facility"
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+            />
+          </div>
+
+          {/* Image 4 */}
+          <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <Image
+              src="https://WG-Global.b-cdn.net/Etihad/ALTEHAD4.jpeg"
+              alt="Etihad Group facility"
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+            />
           </div>
         </div>
       </div>
