@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface SidebarItem {
   id: string
@@ -77,8 +78,10 @@ export function ProductSidebar() {
     }
   }
 
+  const { isRTL } = useLanguage()
+
   return (
-    <aside className="fixed left-4 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
+    <aside className={`fixed ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 z-50 hidden lg:block`}>
       <div className="flex flex-col gap-4 bg-transparent  rounded-2xl p-4">
         {sidebarItems.map((item) => (
           <button

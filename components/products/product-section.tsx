@@ -1,6 +1,9 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface ProductSectionProps {
   title: string
@@ -31,6 +34,7 @@ export function ProductSection({
   sectionIndex = 0,
   totalSections = 5,
 }: ProductSectionProps) {
+  const { t, isRTL } = useLanguage()
   const isFirst = sectionIndex === 0
   const isLast = sectionIndex === totalSections - 1
   const diagonalHeight = 100 // Height of diagonal edge in pixels
@@ -75,10 +79,10 @@ export function ProductSection({
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
         <div
-          className={`grid md:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? "md:flex-row-reverse" : ""}`}
+          className={`grid md:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? (isRTL ? "" : "md:flex-row-reverse") : ""} ${isRTL && imagePosition === "right" ? "md:flex-row-reverse" : ""}`}
         >
           {/* Content */}
-          <div className={`${imagePosition === "right" ? "md:order-1" : "md:order-2"} space-y-6`}>
+          <div className={`${imagePosition === "right" ? (isRTL ? "md:order-2" : "md:order-1") : (isRTL ? "md:order-1" : "md:order-2")} space-y-6 rtl:text-right`}>
             <div className="space-y-4">
               <h3 className={`text-xl font-semibold ${textColor} opacity-90`}>{subtitle}</h3>
             </div>
@@ -90,7 +94,7 @@ export function ProductSection({
             {/* Brand Badge */}
             <div className="mb-8 inline-block px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/30">
               <div className="text-white font-bold text-center">
-                <div className="text-lg">Etihad Group</div>
+                <div className="text-lg">{t.productsPage.brandBadge}</div>
               </div>
             </div>
 
@@ -101,7 +105,7 @@ export function ProductSection({
                     size="lg"
                     className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Explore more
+                    {t.productsPage.exploreMore}
                   </Button>
                 </Link>
               ) : id === "fayroz" ? (
@@ -110,7 +114,7 @@ export function ProductSection({
                     size="lg"
                     className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Explore more
+                    {t.productsPage.exploreMore}
                   </Button>
                 </Link>
               ) : id === "lazord" ? (
@@ -119,7 +123,7 @@ export function ProductSection({
                     size="lg"
                     className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Explore more
+                    {t.productsPage.exploreMore}
                   </Button>
                 </Link>
               ) : id === "rayan-sama-karbala" ? (
@@ -128,7 +132,7 @@ export function ProductSection({
                     size="lg"
                     className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Explore more
+                    {t.productsPage.exploreMore}
                   </Button>
                 </Link>
               ) : id === "sawsan" ? (
@@ -137,7 +141,7 @@ export function ProductSection({
                     size="lg"
                     className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Explore more
+                    {t.productsPage.exploreMore}
                   </Button>
                 </Link>
               ) : id === "etihad-sugar" ? (
@@ -146,7 +150,7 @@ export function ProductSection({
                     size="lg"
                     className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Explore more
+                    {t.productsPage.exploreMore}
                   </Button>
                 </Link>
               ) : (
@@ -154,14 +158,14 @@ export function ProductSection({
                   size="lg"
                   className="bg-[#B8860B] hover:bg-[#9A7209] text-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  Explore more
+                  {t.productsPage.exploreMore}
                 </Button>
               )}
             </div>
           </div>
 
           {/* Image */}
-          <div className={`${imagePosition === "right" ? "md:order-2" : "md:order-1"}`}>
+          <div className={`${imagePosition === "right" ? (isRTL ? "md:order-1" : "md:order-2") : (isRTL ? "md:order-2" : "md:order-1")}`}>
             <div className="relative flex items-center justify-center">
               {/* Circular Product Image */}
               <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">

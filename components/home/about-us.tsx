@@ -1,33 +1,35 @@
+"use client"
+
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 export function AboutUs() {
+  const { t } = useLanguage()
+
   return (
     <section className="w-full bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Heading - Centered */}
         <h2 className="mb-8 text-center text-4xl font-bold text-[#B8860B] sm:text-5xl lg:text-6xl">
-          About Us
+          {t.home.aboutUs.title}
         </h2>
 
         {/* Description - Centered with Better Spacing */}
         <div className="mx-auto mb-10 max-w-4xl">
           <p className="text-center text-base leading-relaxed text-gray-800 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed">
-            Welcome to Etihad Group, a leading name in the food and agricultural industries. Since its establishment in
-            2012, the Group has successfully positioned itself as one of the most prominent companies in the Middle East
-            and the world, thanks to its commitment to innovation, high quality, and adaptability to modern demands.
+            {t.home.aboutUs.description1}
           </p>
           <p className="mt-6 text-center text-base leading-relaxed text-gray-800 sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed">
-            We manage major companies such as Etihad Food Industries and Rayan for Oil Extraction & Feed Mill, which form the
-            cornerstones of our continued success. At Etihad Group, we are dedicated to delivering the finest products,
-            with a strong focus on sustainable development and industrial excellence.
+            {t.home.aboutUs.description2}
           </p>
         </div>
 
         {/* Learn More Button - Centered */}
         <div className="mb-12 flex justify-center">
-          <Button className="rounded-full bg-[#B8860B] px-8 py-6 text-base font-medium text-white transition-colors hover:bg-[#9A7209]">
-            Learn more
+          <Button asChild className="rounded-full bg-[#B8860B] px-8 py-6 text-base font-medium text-white transition-colors hover:bg-[#9A7209]">
+            <Link href="/about">{t.home.ourCompanies.learnMore}</Link>
           </Button>
         </div>
 

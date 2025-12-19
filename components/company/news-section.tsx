@@ -93,14 +93,6 @@ export default function NewsSection() {
               </h3>
 
               <p className="mb-6 text-pretty leading-relaxed text-gray-600">{featuredNews.excerpt}</p>
-
-              <Button
-                size="lg"
-                className="group/btn w-fit bg-[#B8860B] text-white transition-all hover:bg-[#9A7209] hover:shadow-lg"
-              >
-                Read More
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-              </Button>
             </div>
           </div>
         </article>

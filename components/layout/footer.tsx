@@ -1,5 +1,7 @@
 "use client"
 
+"use client"
+
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
@@ -9,9 +11,11 @@ import {
   MapPin,
   ArrowUp,
 } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 export function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +67,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Left Column - Brand Section */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center space-x-4 mb-6">
+            <Link href="/" className="flex items-center space-x-4 mb-6 rtl:space-x-reverse">
               <div className="relative w-24 h-16 p-2">
                 <Image
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/etihad-logo-main%202-KuGw7ZECLMQD28sUoleriXPX3Hz8Tv.png"
@@ -73,26 +77,25 @@ export function Footer() {
                 />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">Etihad Group</h3>
-                <p className="text-gray-300 text-sm">Premium Food Industries</p>
+                <h3 className="text-2xl font-bold text-white">{t.footer.brand}</h3>
+                <p className="text-gray-300 text-sm">{t.footer.tagline}</p>
               </div>
             </Link>
 
             <p className="text-white leading-relaxed text-base">
-              For over 25 years, we have been the cornerstone of quality in the Middle East's food industry,
-              delivering excellence through innovation, sustainability, and unwavering commitment to quality.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Middle Column - Navigation */}
           <div className="space-y-4">
-            <h4 className="text-xl font-bold text-white mb-4">Navigation</h4>
+            <h4 className="text-xl font-bold text-white mb-4">{t.footer.navigation}</h4>
             <ul className="space-y-3">
               {[
-                { name: "About us", href: "/about" },
-                { name: "Our products", href: "/products" },
-                { name: "companies", href: "/companies" },
-                { name: "Contact", href: "/contact" },
+                { name: t.nav.about, href: "/about" },
+                { name: t.nav.products, href: "/products" },
+                { name: t.nav.companies, href: "/companies" },
+                { name: t.nav.contact, href: "/contact" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -108,26 +111,26 @@ export function Footer() {
 
           {/* Right Column - Contact Information */}
           <div className="space-y-4">
-            <h4 className="text-xl font-bold text-white mb-4">Contact Information</h4>
+            <h4 className="text-xl font-bold text-white mb-4">{t.footer.contactInfo}</h4>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3 rtl:space-x-reverse">
                 <MapPin className="w-5 h-5 text-white mt-1 shrink-0" />
                 <div>
-                  <div className="font-semibold text-white mb-1">Head Office</div>
-                  <span className="text-gray-300 text-sm">Meshahya, Babylon Province, Iraq</span>
+                  <div className="font-semibold text-white mb-1">{t.footer.headOffice}</div>
+                  <span className="text-gray-300 text-sm">{t.footer.address}</span>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <Phone className="w-5 h-5 text-white shrink-0" />
                 <div>
-                  <div className="font-semibold text-white mb-1">Phone</div>
-                  <span className="text-gray-300 text-sm">+964 (0) 123 456 789</span>
+                  <div className="font-semibold text-white mb-1">{t.footer.phone}</div>
+                  <span className="text-gray-300 text-sm" dir="ltr">+964 (0) 123 456 789</span>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <Mail className="w-5 h-5 text-white shrink-0" />
                 <div>
-                  <div className="font-semibold text-white mb-1">Email</div>
+                  <div className="font-semibold text-white mb-1">{t.footer.email}</div>
                   <span className="text-gray-300 text-sm">info@etihadgroup.com</span>
                 </div>
               </div>
@@ -140,7 +143,7 @@ export function Footer() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-[#B8860B] flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50"
+          className="fixed bottom-8 right-8 rtl:left-8 rtl:right-auto w-12 h-12 bg-[#B8860B] flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50"
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-5 h-5 text-white" />

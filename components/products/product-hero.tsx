@@ -1,4 +1,10 @@
+"use client"
+
+import { useLanguage } from "@/lib/i18n/language-context"
+
 export function ProductHero() {
+  const { t } = useLanguage()
+
   return (
     <section className="relative bg-gray-50 py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background Pattern */}
@@ -9,18 +15,18 @@ export function ProductHero() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Hero Content */}
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto rtl:text-right">
           <div className="inline-block mb-4">
             <div className="h-1 w-20 bg-[#B8860B] mx-auto"></div>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#B8860B] mb-4 text-balance">
-            Our Products
+            {t.productsPage.hero.title}
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            Quality You Can Trust
+            {t.productsPage.hero.subtitle}
           </p>
           <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-            Discover our premium range of food products, each crafted with excellence and commitment to the highest quality standards.
+            {t.productsPage.hero.description}
           </p>
         </div>
       </div>

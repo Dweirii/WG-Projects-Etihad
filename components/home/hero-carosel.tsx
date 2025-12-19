@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 interface InfoCard {
   label: string
@@ -32,139 +33,138 @@ interface SlideData {
   cta2: CTA
 }
 
-const SLIDES: SlideData[] = [
-  {
-    title: "Etihad Sugar Refinery",
-    subtitle: "State-of-the-Art Sugar Processing",
-    blurb: "Our advanced sugar refinery processes 100,000 tons annually with 99.9% purity standards.",
-    image: "https://static.wixstatic.com/media/fdd745_3bfebde2b2944ef1a47ccbcb0259d429~mv2.jpg",
-    locationText: "Baghdad Industrial Zone",
-    locationUrl: "https://www.google.com/maps/search/?api=1&query=Baghdad%20Industrial%20Zone",
-    infoCards: [
-      { label: "Location", value: "Baghdad Industrial\nZone" },
-      { label: "Established", value: "2008" },
-      { label: "Capacity", value: "100,000 tons/year" },
-    ],
-    features: ["Automated Processing", "Quality Control Labs", "Environmental Standards"],
-    stats: [
-      { label: "Employees", value: "200+" },
-      { label: "Annual Capacity", value: "100,000 tons/year" },
-      { label: "Established", value: "2008" },
-      { label: "Location", value: "Baghdad Industrial Zone" },
-    ],
-    cta1: { label: "Explore Sugar Products →", href: "https://example.com" },
-    cta2: { label: "All Facilities", href: "#all" },
-  },
-  {
-    title: "Karbala Agricultural City",
-    subtitle: "Elite Poultry & Agricultural Operations",
-    blurb: "World-class poultry facilities producing 2 million birds monthly with premium quality standards.",
-    image: "https://static.wixstatic.com/media/fdd745_8b0eaf16e9474834b4e7829b7a49a821~mv2.jpg",
-    locationText: "Karbala Province",
-    locationUrl: "https://www.google.com/maps/search/?api=1&query=Karbala%20Province",
-    infoCards: [
-      { label: "Location", value: "Karbala Province" },
-      { label: "Established", value: "2012" },
-      { label: "Capacity", value: "2M birds/month" },
-    ],
-    features: ["Automated Feeding", "Climate Control", "Halal Certified"],
-    stats: [
-      { label: "Employees", value: "500+" },
-      { label: "Annual Capacity", value: "2M birds/month" },
-      { label: "Established", value: "2012" },
-      { label: "Location", value: "Karbala Province" },
-    ],
-    cta1: { label: "View Poultry Products →", href: "https://example.com/poultry" },
-    cta2: { label: "All Facilities", href: "#all" },
-  },
-  {
-    title: "Lazord Oil Processing",
-    subtitle: "Premium Oils & Ghee Production",
-    blurb: "Advanced oil refining facility producing 50,000 tons/year of premium cooking oils and traditional ghee.",
-    image: "https://static.wixstatic.com/media/fdd745_b27ca419c03946a2a3412facd9d6358e~mv2.jpg",
-    locationText: "Basra Industrial Area",
-    locationUrl: "https://www.google.com/maps/search/?api=1&query=Basra%20Industrial%20Area",
-    infoCards: [
-      { label: "Location", value: "Basra Industrial Area" },
-      { label: "Established", value: "2005" },
-      { label: "Capacity", value: "50,000 tons/year" },
-    ],
-    features: ["Cold Press Technology", "Multi-Oil Processing", "Traditional Ghee"],
-    stats: [
-      { label: "Employees", value: "150+" },
-      { label: "Annual Capacity", value: "50,000 tons/year" },
-      { label: "Established", value: "2005" },
-      { label: "Location", value: "Basra Industrial Area" },
-    ],
-    cta1: { label: "Discover Oil Products →", href: "https://example.com/oils" },
-    cta2: { label: "All Facilities", href: "#all" },
-  },
-  {
-    title: "Etihad Flour Mill",
-    subtitle: "Modern Wheat Processing",
-    blurb: "High-capacity flour mill processing finest wheat into premium flour products for commercial use.",
-    image: "https://static.wixstatic.com/media/fdd745_5cf60a485e9e41aa8ebf07f935437054~mv2.jpeg",
-    locationText: "Babylon Province",
-    locationUrl: "https://www.google.com/maps/search/?api=1&query=Babylon%20Province",
-    infoCards: [
-      { label: "Location", value: "Babylon Province" },
-      { label: "Established", value: "2010" },
-      { label: "Capacity", value: "200,000 tons/year" },
-    ],
-    features: ["Automated Milling", "Quality Testing", "Multiple Grades"],
-    stats: [
-      { label: "Employees", value: "120+" },
-      { label: "Annual Capacity", value: "200,000 tons/year" },
-      { label: "Established", value: "2010" },
-      { label: "Location", value: "Babylon Province" },
-    ],
-    cta1: { label: "Browse Flour Products →", href: "https://example.com/flour" },
-    cta2: { label: "All Facilities", href: "#all" },
-  },
-  {
-    title: "Advanced Poultry Complex",
-    subtitle: "Integrated Poultry Operations",
-    blurb: "Comprehensive poultry complex with hatchery, growing facilities, and processing units.",
-    image: "https://static.wixstatic.com/media/fdd745_4be52187c668413eb3031d4354cd52ab~mv2.jpg",
-    locationText: "Karbala Agricultural Zone",
-    locationUrl: "https://www.google.com/maps/search/?api=1&query=Karbala%20Agricultural%20Zone",
-    infoCards: [
-      { label: "Location", value: "Karbala Agricultural Zone" },
-      { label: "Established", value: "2012" },
-      { label: "Capacity", value: "Integrated Operations" },
-    ],
-    features: ["Hatchery Operations", "Feed Production", "Processing Plant"],
-    stats: [
-      { label: "Employees", value: "300+" },
-      { label: "Annual Capacity", value: "Integrated Operations" },
-      { label: "Established", value: "2012" },
-      { label: "Location", value: "Karbala Agricultural Zone" },
-    ],
-    cta1: { label: "Learn More →", href: "https://example.com/complex" },
-    cta2: { label: "All Facilities", href: "#all" },
-  },
-]
-
-const INTERVAL = 6000
-
 export function FacilityHero() {
+  const { t, locale, isRTL } = useLanguage()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isHovered, setIsHovered] = useState(false)
+
+  const SLIDES: SlideData[] = [
+    {
+      title: t.home.hero.slides[0].title,
+      subtitle: t.home.hero.slides[0].subtitle,
+      blurb: t.home.hero.slides[0].blurb,
+      image: "https://static.wixstatic.com/media/fdd745_3bfebde2b2944ef1a47ccbcb0259d429~mv2.jpg",
+      locationText: t.home.hero.slides[0].location,
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Baghdad%20Industrial%20Zone",
+      infoCards: [
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[0].location },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2008" },
+        { label: locale === "en" ? "Capacity" : "السعة", value: locale === "en" ? "100,000 tons/year" : "100,000 طن/سنة" },
+      ],
+      features: locale === "en" ? ["Automated Processing", "Quality Control Labs", "Environmental Standards"] : ["معالجة مؤتمتة", "مختبرات مراقبة الجودة", "معايير بيئية"],
+      stats: [
+        { label: locale === "en" ? "Employees" : "الموظفون", value: "200+" },
+        { label: locale === "en" ? "Annual Capacity" : "السعة السنوية", value: locale === "en" ? "100,000 tons/year" : "100,000 طن/سنة" },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2008" },
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[0].location },
+      ],
+      cta1: { label: t.home.hero.slides[0].cta1, href: "https://example.com" },
+      cta2: { label: t.home.hero.slides[0].cta2, href: "#all" },
+    },
+    {
+      title: t.home.hero.slides[1].title,
+      subtitle: t.home.hero.slides[1].subtitle,
+      blurb: t.home.hero.slides[1].blurb,
+      image: "https://static.wixstatic.com/media/fdd745_8b0eaf16e9474834b4e7829b7a49a821~mv2.jpg",
+      locationText: t.home.hero.slides[1].location,
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Karbala%20Province",
+      infoCards: [
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[1].location },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2012" },
+        { label: locale === "en" ? "Capacity" : "السعة", value: locale === "en" ? "2M birds/month" : "2 مليون طائر/شهر" },
+      ],
+      features: locale === "en" ? ["Automated Feeding", "Climate Control", "Halal Certified"] : ["تغذية مؤتمتة", "تحكم في المناخ", "معتمد حلال"],
+      stats: [
+        { label: locale === "en" ? "Employees" : "الموظفون", value: "500+" },
+        { label: locale === "en" ? "Annual Capacity" : "السعة السنوية", value: locale === "en" ? "2M birds/month" : "2 مليون طائر/شهر" },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2012" },
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[1].location },
+      ],
+      cta1: { label: t.home.hero.slides[1].cta1, href: "https://example.com/poultry" },
+      cta2: { label: t.home.hero.slides[1].cta2, href: "#all" },
+    },
+    {
+      title: t.home.hero.slides[2].title,
+      subtitle: t.home.hero.slides[2].subtitle,
+      blurb: t.home.hero.slides[2].blurb,
+      image: "https://static.wixstatic.com/media/fdd745_b27ca419c03946a2a3412facd9d6358e~mv2.jpg",
+      locationText: t.home.hero.slides[2].location,
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Basra%20Industrial%20Area",
+      infoCards: [
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[2].location },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2005" },
+        { label: locale === "en" ? "Capacity" : "السعة", value: locale === "en" ? "50,000 tons/year" : "50,000 طن/سنة" },
+      ],
+      features: locale === "en" ? ["Cold Press Technology", "Multi-Oil Processing", "Traditional Ghee"] : ["تقنية الكبس البارد", "معالجة زيوت متعددة", "سمن تقليدي"],
+      stats: [
+        { label: locale === "en" ? "Employees" : "الموظفون", value: "150+" },
+        { label: locale === "en" ? "Annual Capacity" : "السعة السنوية", value: locale === "en" ? "50,000 tons/year" : "50,000 طن/سنة" },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2005" },
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[2].location },
+      ],
+      cta1: { label: t.home.hero.slides[2].cta1, href: "https://example.com/oils" },
+      cta2: { label: t.home.hero.slides[2].cta2, href: "#all" },
+    },
+    {
+      title: t.home.hero.slides[3].title,
+      subtitle: t.home.hero.slides[3].subtitle,
+      blurb: t.home.hero.slides[3].blurb,
+      image: "https://static.wixstatic.com/media/fdd745_5cf60a485e9e41aa8ebf07f935437054~mv2.jpeg",
+      locationText: t.home.hero.slides[3].location,
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Babylon%20Province",
+      infoCards: [
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[3].location },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2010" },
+        { label: locale === "en" ? "Capacity" : "السعة", value: locale === "en" ? "200,000 tons/year" : "200,000 طن/سنة" },
+      ],
+      features: locale === "en" ? ["Automated Milling", "Quality Testing", "Multiple Grades"] : ["طحن مؤتمت", "اختبار الجودة", "درجات متعددة"],
+      stats: [
+        { label: locale === "en" ? "Employees" : "الموظفون", value: "120+" },
+        { label: locale === "en" ? "Annual Capacity" : "السعة السنوية", value: locale === "en" ? "200,000 tons/year" : "200,000 طن/سنة" },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2010" },
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[3].location },
+      ],
+      cta1: { label: t.home.hero.slides[3].cta1, href: "https://example.com/flour" },
+      cta2: { label: t.home.hero.slides[3].cta2, href: "#all" },
+    },
+    {
+      title: t.home.hero.slides[4].title,
+      subtitle: t.home.hero.slides[4].subtitle,
+      blurb: t.home.hero.slides[4].blurb,
+      image: "https://static.wixstatic.com/media/fdd745_4be52187c668413eb3031d4354cd52ab~mv2.jpg",
+      locationText: t.home.hero.slides[4].location,
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Karbala%20Agricultural%20Zone",
+      infoCards: [
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[4].location },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2012" },
+        { label: locale === "en" ? "Capacity" : "السعة", value: locale === "en" ? "Integrated Operations" : "عمليات متكاملة" },
+      ],
+      features: locale === "en" ? ["Hatchery Operations", "Feed Production", "Processing Plant"] : ["عمليات المفقس", "إنتاج الأعلاف", "مصنع المعالجة"],
+      stats: [
+        { label: locale === "en" ? "Employees" : "الموظفون", value: "300+" },
+        { label: locale === "en" ? "Annual Capacity" : "السعة السنوية", value: locale === "en" ? "Integrated Operations" : "عمليات متكاملة" },
+        { label: locale === "en" ? "Established" : "تأسست", value: "2012" },
+        { label: locale === "en" ? "Location" : "الموقع", value: t.home.hero.slides[4].location },
+      ],
+      cta1: { label: t.home.hero.slides[4].cta1, href: "https://example.com/complex" },
+      cta2: { label: t.home.hero.slides[4].cta2, href: "#all" },
+    },
+  ]
 
   const currentSlide = SLIDES[currentIndex]
 
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex((index + SLIDES.length) % SLIDES.length)
-  }, [])
+  }, [SLIDES.length])
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % SLIDES.length)
-  }, [])
+  }, [SLIDES.length])
 
   const prevSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + SLIDES.length) % SLIDES.length)
-  }, [])
+  }, [SLIDES.length])
 
   const togglePlay = useCallback(() => {
     setIsPlaying((prev) => !prev)
@@ -176,16 +176,16 @@ export function FacilityHero() {
 
     const timer = setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % SLIDES.length)
-    }, INTERVAL)
+    }, 6000)
     
     return () => clearTimeout(timer)
-  }, [currentIndex, isPlaying, isHovered])
+  }, [currentIndex, isPlaying, isHovered, SLIDES.length])
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") nextSlide()
-      if (e.key === "ArrowLeft") prevSlide()
+      if (e.key === "ArrowRight") isRTL ? prevSlide() : nextSlide()
+      if (e.key === "ArrowLeft") isRTL ? nextSlide() : prevSlide()
       if (e.key === " ") {
         e.preventDefault()
         togglePlay()
@@ -194,7 +194,7 @@ export function FacilityHero() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [nextSlide, prevSlide, togglePlay])
+  }, [nextSlide, prevSlide, togglePlay, isRTL])
 
   // Touch swipe support
   useEffect(() => {
@@ -210,8 +210,8 @@ export function FacilityHero() {
       const diff = touchStartX - touchEndX
 
       if (Math.abs(diff) > 40) {
-        if (diff > 0) nextSlide()
-        else prevSlide()
+        if (diff > 0) isRTL ? prevSlide() : nextSlide()
+        else isRTL ? nextSlide() : prevSlide()
       }
       touchStartX = null
     }
@@ -222,7 +222,7 @@ export function FacilityHero() {
       window.removeEventListener("touchstart", handleTouchStart)
       window.removeEventListener("touchend", handleTouchEnd)
     }
-  }, [nextSlide, prevSlide])
+  }, [nextSlide, prevSlide, isRTL])
 
   return (
     <div
@@ -254,16 +254,16 @@ export function FacilityHero() {
       ))}
 
       {/* Live Badge */}
-      <div className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/18 px-2.5 py-1 text-xs md:left-[18px] md:top-[18px] md:gap-2 md:px-3 md:py-1.5 md:text-sm text-emerald-100 backdrop-blur-md">
+      <div className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/18 px-2.5 py-1 text-xs md:left-[18px] md:top-[18px] md:gap-2 md:px-3 md:py-1.5 md:text-sm text-emerald-100 backdrop-blur-md rtl:left-auto rtl:right-3 rtl:md:right-[18px]">
         <span className="inline-block h-1.5 w-1.5 md:h-2 md:w-2 animate-pulse rounded-full bg-emerald-400" />
-        <span className="hidden sm:inline">Live Facility Tour</span>
-        <span className="sm:hidden">Live</span>
+        <span className="hidden sm:inline">{locale === "en" ? "Live Facility Tour" : "جولة مباشرة في المرافق"}</span>
+        <span className="sm:hidden">{locale === "en" ? "Live" : "مباشر"}</span>
       </div>
 
       {/* Main Content */}
       <div className="relative z-20 mx-auto flex h-full w-full max-w-[1200px] items-end gap-4 px-4 pb-20 md:items-center md:gap-8 md:px-6 md:pb-0 lg:gap-8">
         {/* Left Content */}
-        <div className="flex-1 w-full">
+        <div className="flex-1 w-full rtl:text-right">
           <h1 className="mb-1.5 md:mb-2 text-balance text-[clamp(24px,6vw,64px)] font-bold leading-[1.1] md:leading-[1.05] text-white">
             {currentSlide.title}
           </h1>
@@ -271,13 +271,13 @@ export function FacilityHero() {
           <p className="mt-2 md:mt-2.5 max-w-[640px] text-sm md:text-base text-white/65 leading-relaxed">{currentSlide.blurb}</p>
 
           {/* Info Cards */}
-          <div className="mt-3 md:mt-[18px] flex flex-wrap gap-2.5 md:gap-3.5">
+          <div className="mt-3 md:mt-[18px] flex flex-wrap gap-2.5 md:gap-3.5 rtl:justify-start">
             {currentSlide.infoCards.map((card, idx) => {
-              const isLocation = card.label.toLowerCase() === "location"
+              const isLocation = card.label.toLowerCase() === (locale === "en" ? "location" : "الموقع")
               const content = (
                 <div
                   key={idx}
-                  className="w-full sm:w-[calc(50%-0.625rem)] md:w-[230px] rounded-xl md:rounded-2xl border border-white/16 bg-white/10 p-3 md:p-3.5 shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[10px]"
+                  className="w-full sm:w-[calc(50%-0.625rem)] md:w-[230px] rounded-xl md:rounded-2xl border border-white/16 bg-white/10 p-3 md:p-3.5 shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[10px] rtl:text-right"
                 >
                   <div className="text-[10px] md:text-xs uppercase tracking-wider text-white/65">{card.label}</div>
                   <div className="mt-0.5 md:mt-1 whitespace-pre-line text-sm md:text-base font-semibold text-white">{card.value}</div>
@@ -301,7 +301,7 @@ export function FacilityHero() {
           </div>
 
           {/* Feature Chips */}
-          <div className="mt-3 md:mt-4 flex flex-wrap gap-2 md:gap-2.5">
+          <div className="mt-3 md:mt-4 flex flex-wrap gap-2 md:gap-2.5 rtl:justify-start">
             {currentSlide.features.map((feature, idx) => (
               <span
                 key={idx}
@@ -313,7 +313,7 @@ export function FacilityHero() {
           </div>
 
           {/* CTAs */}
-          <div className="mt-3 md:mt-4 flex flex-col sm:flex-row flex-wrap gap-2 md:gap-2.5">
+          <div className="mt-3 md:mt-4 flex flex-col sm:flex-row flex-wrap gap-2 md:gap-2.5 rtl:flex-row-reverse rtl:justify-end">
             <a
               href={currentSlide.cta1.href}
               target="_blank"
@@ -333,14 +333,14 @@ export function FacilityHero() {
 
         {/* Right Panel - Desktop Only */}
         <aside className="hidden flex-[0_0_420px] lg:block">
-          <div className="rounded-[22px] border border-white/16 bg-white/10 p-[22px] shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[14px]">
-            <h3 className="text-center text-xl font-bold text-white">Facility Overview</h3>
-            <small className="mt-1 block text-center text-white/65">Advanced Manufacturing Excellence</small>
+          <div className="rounded-[22px] border border-white/16 bg-white/10 p-[22px] shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[14px] rtl:text-right">
+            <h3 className="text-center text-xl font-bold text-white">{locale === "en" ? "Facility Overview" : "نظرة عامة على المرفق"}</h3>
+            <small className="mt-1 block text-center text-white/65">{locale === "en" ? "Advanced Manufacturing Excellence" : "تميز التصنيع المتقدم"}</small>
             <div className="mt-4">
               {currentSlide.stats.map((stat, idx) => {
-                const isLocation = stat.label.toLowerCase() === "location"
+                const isLocation = stat.label.toLowerCase() === (locale === "en" ? "location" : "الموقع")
                 return (
-                  <div key={idx} className="flex justify-between gap-4 border-b border-white/12 py-3 last:border-b-0">
+                  <div key={idx} className="flex justify-between gap-4 border-b border-white/12 py-3 last:border-b-0 rtl:flex-row-reverse">
                     <div className="text-white/65">{stat.label}</div>
                     <div className="font-semibold text-white">
                       {isLocation ? (
@@ -360,34 +360,34 @@ export function FacilityHero() {
                 )
               })}
             </div>
-            <div className="mt-2.5 flex items-center gap-2 text-emerald-200">
+            <div className="mt-2.5 flex items-center gap-2 text-emerald-200 rtl:flex-row-reverse">
               <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
-              Currently Operating
+              {locale === "en" ? "Currently Operating" : "قيد التشغيل حالياً"}
             </div>
           </div>
         </aside>
       </div>
 
       {/* Navigation Controls */}
-      <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-between px-2 md:px-2.5">
+      <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-between px-2 md:px-2.5 rtl:flex-row-reverse">
         <button
-          onClick={prevSlide}
+          onClick={isRTL ? nextSlide : prevSlide}
           className="pointer-events-auto grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-full border border-white/22 bg-black/45 backdrop-blur-md transition-transform active:scale-95 md:hover:scale-110 touch-manipulation"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 text-white" />
+          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 text-white rtl:rotate-180" />
         </button>
         <button
-          onClick={nextSlide}
+          onClick={isRTL ? prevSlide : nextSlide}
           className="pointer-events-auto grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-full border border-white/22 bg-black/45 backdrop-blur-md transition-transform active:scale-95 md:hover:scale-110 touch-manipulation"
           aria-label="Next slide"
         >
-          <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-white" />
+          <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-white rtl:rotate-180" />
         </button>
       </div>
 
       {/* Bottom HUD */}
-      <div className="absolute bottom-2.5 md:bottom-3.5 left-0 right-0 z-40 mx-auto flex max-w-[960px] items-center gap-2 md:gap-2.5 px-3 md:px-4">
+      <div className="absolute bottom-2.5 md:bottom-3.5 left-0 right-0 z-40 mx-auto flex max-w-[960px] items-center gap-2 md:gap-2.5 px-3 md:px-4 rtl:flex-row-reverse">
         <button
           onClick={togglePlay}
           className="grid h-8 w-8 md:h-9 md:w-9 place-items-center rounded-full border border-white/22 bg-black/45 backdrop-blur-md transition-transform active:scale-95 md:hover:scale-110 touch-manipulation"
@@ -401,7 +401,7 @@ export function FacilityHero() {
         </button>
 
         {/* Dots */}
-        <div className="flex gap-1.5 md:gap-2">
+        <div className="flex gap-1.5 md:gap-2 rtl:flex-row-reverse">
           {SLIDES.map((_, idx) => (
             <button
               key={idx}
